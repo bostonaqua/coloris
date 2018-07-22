@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes Collector</title>
+</head>
+<body>
+<form action="{% url 'add_note' %}" method="post">
+{% csrf_token %}
+    <p><b>Write your note:</b></p>
+    <p><textarea rows="10" cols="45" name="text"></textarea></p>
+<input type="submit" value="Note this" />
+<button type="submit" formaction="{% url 'delete_entrys' %}" formmethod="post">Delete entrys</button>
+</form>
+{% if notes_list %}
+    <ul>
+    {% for n in notes_list %}
+        <li><p>{{ n.text_field }}</p>
+            <p>{{ error_message }}</p>
+            <p>Unique words: {{ n.uniq_count }}</p></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No notes are available.</p>
+{% endif %}
+</body>
+</html>
